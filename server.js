@@ -22,7 +22,7 @@ app.get('/api/tweets', async (req, res) => {
     let dicTweets = createObj(cleanWords);
     const tweetsData = createTemplate(dicTweets);
     tweetsData.sort((a, b) => b.value - a.value);
-    res.json(tweetsData.slice(0, 2000));
+    res.json(tweetsData.slice(0, 2500));
     //res.sendFile(path.join(REACT_BUILD_DIR, 'index.html'));
   });
 
