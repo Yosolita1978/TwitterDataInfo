@@ -3,17 +3,21 @@ import { scaleOrdinal } from 'd3-scale';
 import { schemeCategory10 } from 'd3-scale-chromatic';
 import { useState  } from "react";
 import Button from 'react-bootstrap/Button';
+import Spinner from './spinner';
 
 const MyWordCloud = () =>{
 
     const [words, setWords] = useState(null);
+    const [loading, setLoading] = useState(false);
 
   const loadWords = () =>{
+    setLoading(true);
     // A function to fetch the all the data
     fetch("http://localhost:8080/api/tweets")
     .then((response) => response.json())
     .then((tweets) => {
           setWords(tweets);
+          setLoading(false);
         });
   }
 
@@ -24,6 +28,7 @@ const MyWordCloud = () =>{
         <div>
         <h1>Clouds with Twitter</h1>
       <Button variant="info" onClick={loadWords}>Generate Cloud</Button>
+      {loading ? <Spinner/> : null}
       {!words ? (null) : (<WordCloud data={words}
       width={400}
       height={400}
